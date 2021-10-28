@@ -11,11 +11,6 @@ namespace MasstransitWebApiTemplate.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
@@ -28,13 +23,19 @@ namespace MasstransitWebApiTemplate.Controllers
         {
             _logger.LogInformation("这是测试信息....");
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                Summary = "123456789",
+                Summary2 = "123456789",
+                Summary3 = "123456789"
             })
             .ToArray();
+
+            _logger.LogInformation("执行Get的结果为：{@result}", result);
+
+            return result;
         }
     }
 }
