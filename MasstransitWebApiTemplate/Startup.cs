@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Ui.MySqlProvider.Extensions;
+using Serilog.Ui.Web;
 using System;
 using System.Linq;
 using System.Net;
@@ -61,6 +63,8 @@ namespace MasstransitWebApiTemplate
                     settings.AddHealthCheckEndpoint("MasstransitDemo", "/hc");
                 })
                 .AddInMemoryStorage();
+
+            services.AddSerilogUi(options => options.UseMySqlServer(Configuration.GetConnectionString("DefaultConnection"), "Logs"));
         }
 
         private void ConfigureBus(IBusRegistrationContext context, IRabbitMqBusFactoryConfigurator cfg)
@@ -135,6 +139,8 @@ namespace MasstransitWebApiTemplate
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSerilogUi();
 
             app.UseEndpoints(endpoints =>
             {
