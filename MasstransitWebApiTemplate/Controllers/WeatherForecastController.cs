@@ -37,6 +37,7 @@ namespace MasstransitWebApiTemplate.Controllers
             //或者使用 new[]{ result } 的方式传参
             _logger.LogInformation("执行Get的结果为1：{@result}", result);
             _logger.LogInformation("执行Get的结果为2：{@result}", result, null);
+            _logger.LogInformation("执行Get的结果为3：{@result}", new[] { result });
 
             return result;
         }
