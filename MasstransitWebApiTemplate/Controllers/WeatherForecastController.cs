@@ -33,7 +33,10 @@ namespace MasstransitWebApiTemplate.Controllers
             })
             .ToArray();
 
-            _logger.LogInformation("执行Get的结果为：{@result}", result);
+            //当result为数组时，需要让params object[] 知道result是一个参数，多传一个参数 null 即可解决
+            //或者使用 new[]{ result } 的方式传参
+            _logger.LogInformation("执行Get的结果为1：{@result}", result);
+            _logger.LogInformation("执行Get的结果为2：{@result}", result.ToArray(), null);
 
             return result;
         }
